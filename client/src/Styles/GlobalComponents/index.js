@@ -12,7 +12,8 @@ const Button = styled.button`
   text-transform: uppercase;
 `
 
-const InputContainer = styled.div`
+const InputContainer = styled.form`
+  display: block;
   width: 65%;
   margin: auto;
 `

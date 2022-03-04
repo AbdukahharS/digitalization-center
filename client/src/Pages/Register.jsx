@@ -3,6 +3,7 @@ import axios from 'axios'
 import Auth from '../Layouts/Auth/Auth'
 import Hero from '../Components/Hero/Hero'
 import Form from '../Components/Hero/Form'
+import Snackbar from '../Components/Snackbar/Snackbar'
 import {
   InputContainer,
   Button,
@@ -20,7 +21,7 @@ const Register = () => {
   const phoneInp = useRef(0)
   const [password, setPassword] = useState('')
 
-  const handleClick = async () => {
+  const handleClick = () => {
     const login = loginInp.current.value
     const name = nameInp.current.value
     const surname = surnameInp.current.value
@@ -31,58 +32,84 @@ const Register = () => {
       alert('All inputs must be filled!')
     } else {
       const user = { login, name, surname, email, password, phone }
-      const res = await axios.post(
-        'http://localhost:2000/api/user/register',
-        user
-      )
-      console.log(res)
+      axios
+        .post('http://localhost:2000/api/user/register', user)
+        .then((res) => {
+          if (res.status === 201) {
+          }
+        })
+        .catch((err) => alert(err.response.data.message))
     }
   }
 
   return (
-    <Auth>
-      <Hero>
-        <h2 style={{ fontWeight: 700, fontSize: '3rem' }}>LOGO</h2>
-        <h1 style={{ fontWeight: 700, fontSize: '3rem', textAlign: 'center' }}>
-          REGISTER <br /> FORM
-        </h1>
-      </Hero>
-      <Form>
-        <InputContainer>
-          <h3 style={{ textAlign: 'center', marginBottom: '1.2rem' }}>LOGO</h3>
-          <Label>Login</Label>
-          <Input ref={loginInp} placeholder='Eg. your login here' type='text' />
-          <Label>Name</Label>
-          <Input ref={nameInp} placeholder='Eg. your name here' type='text' />
-          <Label>Surname</Label>
-          <Input
-            ref={surnameInp}
-            placeholder='Eg. your surname here'
-            type='text'
-          />
-          <Label>e-mail</Label>
-          <Input ref={emailInp} placeholder='Eg. your email here' type='text' />
-          <Label>Phone number</Label>
-          <Input
-            ref={phoneInp}
-            placeholder='Eg. your number here'
-            type='number'
-          />
-          <Label>Faculty</Label>
-          <Select placeholder='Select Faculty'>
-            <option value=''>Select Faculty</option>
-          </Select>
-          <Label>Password</Label>
-          <InputPassword
-            value={password}
-            handleChange={(e) => {
-              setPassword(e.target.value)
-            }}
-          />
-          <Button onClick={handleClick}>SIGN UP</Button>
-        </InputContainer>
-      </Form>
-    </Auth>
+    <>
+      <Auth>
+        <Hero>
+          <h2 style={{ fontWeight: 700, fontSize: '3rem' }}>LOGO</h2>
+          <h1
+            style={{ fontWeight: 700, fontSize: '3rem', textAlign: 'center' }}
+          >
+            REGISTER <br /> FORM
+          </h1>
+        </Hero>
+        <Form>
+          <InputContainer>
+            <h3 style={{ textAlign: 'center', marginBottom: '1.2rem' }}>
+              LOGO
+            </h3>
+            <Label>Login</Label>
+            <Input
+              ref={loginInp}
+              placeholder='Eg. your login here'
+              type='text'
+              autoComplete='login'
+            />
+            <Label>Name</Label>
+            <Input
+              ref={nameInp}
+              placeholder='Eg. your name here'
+              type='text'
+              autoComplete='name'
+            />
+            <Label>Surname</Label>
+            <Input
+              ref={surnameInp}
+              placeholder='Eg. your surname here'
+              type='text'
+              autoComplete='surname'
+            />
+            <Label>e-mail</Label>
+            <Input
+              ref={emailInp}
+              placeholder='Eg. your email here'
+              type='text'
+              autoComplete='email'
+            />
+            <Label>Phone number</Label>
+            <Input
+              ref={phoneInp}
+              placeholder='Eg. your number here'
+              type='number'
+              autoComplete='phone-number'
+            />
+            <Label>Faculty</Label>
+            <Select placeholder='Select Faculty'>
+              <option value=''>Select Faculty</option>
+            </Select>
+            <Label>Password</Label>
+            <InputPassword
+              value={password}
+              handleChange={(e) => {
+                setPassword(e.target.value)
+              }}
+            />
+            <Button onClick={handleClick}>SIGN UP</Button>
+          </InputContainer>
+        </Form>
+        <Snackbar variant='success'>Hola</Snackbar>
+      </Auth>
+    </>
   )
 }
 

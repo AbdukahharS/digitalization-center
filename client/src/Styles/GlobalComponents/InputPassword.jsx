@@ -33,6 +33,7 @@ const InputPassword = ({ handleChange }) => {
         type='password'
         placeholder='Eg. your password here'
         onChange={handleChange}
+        autoComplete='current-password'
       />
       <AiOutlineEye
         style={{
