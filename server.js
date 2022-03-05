@@ -16,9 +16,6 @@ app.use(morgan('tiny'))
 
 connectDB()
 
-app.get('/', (req, res) => {
-    res.send('ok')
-})
 
 app.use('/api', Routes)
 
